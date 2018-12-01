@@ -99,56 +99,19 @@ namespace TripStyle.Controllers
             return _context.Products.Where(product => product.Color == color).ToList();
         
         }
-        [HttpGet("search/{searchterm=string}")]
+        [HttpGet("Region/{searchterm}")]
         public IEnumerable<Product> Getsearch(string searchterm)
         {
             
             
-            var result = _context.Products.Where(p=>p.Name == searchterm).ToList();
+            var result = _context.Products.Where(p=>p.Region == searchterm).OrderBy(p=>p.Price).ToList();
              
-            /* if (searchString != null)
-           // {
-           // if (searchString.Id.HasValue)
-                //result = result.Where(x => x.Id == searchString.Id);
-            if (!string.IsNullOrEmpty(searchString.Name))
-                result = result.Where(x => x.Name.Contains(searchString.Name));
-            /* if (searchString.PriceFrom.HasValue)
-                result = result.Where(x => x.Price >= searchString.PriceFrom);
-            if (searchString.PriceTo.HasValue)
-                result = result.Where(x => x.Price <= searchString.PriceTo);*/
-        //}
+           
             return result;     
  
-        /*  public async Task<IActionResult> Index(string SelectedName, string searchString)
-            {
-            // Use LINQ to get list of genres.
-            IQueryable<string> nameQuery = from m in _context.Products
-                                        
-                                            select m.Name;
-
-            var products = from m in _context.Products
-                            select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-               products  = products.Where(s => s.Name.Contains(searchString));
-            }
-
-            if (!String.IsNullOrEmpty(SelectedName))
-            {
-                products = products.Where(x => x.Name == SelectedName);
-            }
-
-            var productVM = new Product();
-            productVM.Name = new SelectList(await nameQuery.Distinct().ToListAsync());
-            productVM.Category = await products.ToListAsync();
-            productVM.Name= searchString;
-
-            return View(productVM);
-            
         
-            }*/
         }    
+
 
     }
  }
